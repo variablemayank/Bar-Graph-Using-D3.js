@@ -110,15 +110,15 @@
             /* --------------------------------------- Total Bar and labels start Here ------------------------------------------- */
             // Calculating pixel based on the maximum value for the labels bar other than total bar
             const calculateUnitsInPixel = MAX_SIZE_OF_BAR / maxi;
-            const height_of_big_bar = 38;
-            const height_of_small_bar = 19;
+            const height_of_big_bar = 38 -(10*(data.length-5));
+            const height_of_small_bar = 19 -(10*(data.length-5));
             const x_axis_of_bar = 170;
             const y_axis_of_big_bar = 30;
             const y_axis_of_small_bar = 38;
             const vertical_line_y1 = 30;
             const vertical_line_y2 = 30 + height_of_big_bar +2;
 
-            
+
             svg.append('rect')
                 .attr('x', x_axis_of_bar)
                 .attr('y', y_axis_of_big_bar)
@@ -162,15 +162,16 @@
                     .attr('y', y_axis_of_big_bar + (calculatedMarginOfTheLine * (index + 1)))
                     .attr('height', height_of_big_bar)
                     .attr('width', value.val_1 * calculateUnitsInPixel)
-                    .style('fill', value.mark_val <= value.val_1 ? 'green' : 'red')
+                    .style('fill', Number(value.mark_val) <= Number(value.val_1) ? 'green' : 'red')
                     .style('opacity', '0.4')
                 svg.append('rect')
                     .attr('x', x_axis_of_bar)
                     .attr('y', y_axis_of_small_bar + (calculatedMarginOfTheLine * (index + 1)))
                     .attr('height', height_of_small_bar)
                     .attr('width', value.val_2 * calculateUnitsInPixel)
-                    .style('fill', value.mark_val <= value.val_1 ? 'green' : 'red')
+                    .style('fill', Number(value.mark_val) <= Number(value.val_1) ? 'green' : 'red')
                     .style('opacity', '0.8');
+                index+1 !== data.length && 
                 svg.append('line')
                     .attr('x1', (value.mark_val * calculateUnitsInPixel)+x_axis_of_bar)
                     .attr('x2', (value.mark_val * calculateUnitsInPixel)+x_axis_of_bar)
