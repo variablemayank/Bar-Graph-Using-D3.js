@@ -171,7 +171,6 @@
                     .attr('width', value.val_2 * calculateUnitsInPixel)
                     .style('fill', Number(value.mark_val) <= Number(value.val_1) ? 'green' : 'red')
                     .style('opacity', '0.8');
-                index+1 !== data.length && 
                 svg.append('line')
                     .attr('x1', (value.mark_val * calculateUnitsInPixel)+x_axis_of_bar)
                     .attr('x2', (value.mark_val * calculateUnitsInPixel)+x_axis_of_bar)
