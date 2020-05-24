@@ -88,6 +88,8 @@
             const labelVerticalLineX2 = 170;
             const labelVerticalLineY1 = 20;
             const labelVerticalLineY2 = height + margin - OFFSET;
+            const label_x_start = 40;
+
             svg.append('line')
                 .attr('x1', labelVerticalLineX1)
                 .attr('x2', labelVerticalLineX2)
@@ -98,14 +100,14 @@
                 .style("fill", "none")
                 .style('opacity', '0.3')
             svg.append('text')
-                .attr('x', '40')
+                .attr('x', label_x_start)
                 .attr('y', calculatedMarginOfTheLine - 15)
                 .text('Total')
                 .style('font-size', '32')
                 .style('font-family', 'cursive')
 
 
-            /* -------------------------------------------------- Total Bar and labels start Here ------------------------------------------- */
+            /* --------------------------------------- Total Bar and labels start Here ------------------------------------------- */
             // Calculating pixel based on the maximum value for the labels bar other than total bar
             const calculateUnitsInPixel = MAX_SIZE_OF_BAR / maxi;
             const height_of_big_bar = 38;
@@ -113,6 +115,10 @@
             const x_axis_of_bar = 170;
             const y_axis_of_big_bar = 30;
             const y_axis_of_small_bar = 38;
+            const vertical_line_y1 = 30;
+            const vertical_line_y2 = 30 + height_of_big_bar +2;
+
+            
             svg.append('rect')
                 .attr('x', x_axis_of_bar)
                 .attr('y', y_axis_of_big_bar)
@@ -127,12 +133,11 @@
                 .attr('width', total_val_2 * unitsInPixelForTotal)
                 .style('fill', total_mark_val <= total_val_1 ? 'green' : 'red')
                 .style('opacity', '0.8')
-            console.log("total_mark_Val",total_mark_val,unitsInPixelForTotal)
             svg.append('line')
                 .attr('x1', (total_mark_val * unitsInPixelForTotal)+ x_axis_of_bar)
                 .attr('x2', (total_mark_val * unitsInPixelForTotal)+ x_axis_of_bar)
-                .attr('y1', 30)
-                .attr('y2', 30 + 40)
+                .attr('y1', vertical_line_y1)
+                .attr('y2', vertical_line_y2)
                 .attr('stroke-width', '2px')
                 .attr('stroke', 'black');
 
@@ -140,30 +145,28 @@
             /* ----------------------------------------------Total Bar and labels ends Here ------------------------------------------------ */
 
 
-            const x = 170;
-            let y = 30;
 
 
 
             /* -----------------------------Brand Labels and bars starts Here -------------------------------------------------------*/
             data.map((value, index) => {
                 svg.append('text')
-                    .attr('x', '40')
+                    .attr('x', label_x_start)
                     .attr('y', ((calculatedMarginOfTheLine * (index + 2)) - 15))
                     .text(value.Brand)
                     .style('font-size', '24')
                     .style('font-family', 'cursive')
 
                 svg.append('rect')
-                    .attr('x', 170)
-                    .attr('y', 30 + (calculatedMarginOfTheLine * (index + 1)))
+                    .attr('x', x_axis_of_bar)
+                    .attr('y', y_axis_of_big_bar + (calculatedMarginOfTheLine * (index + 1)))
                     .attr('height', height_of_big_bar)
                     .attr('width', value.val_1 * calculateUnitsInPixel)
                     .style('fill', value.mark_val <= value.val_1 ? 'green' : 'red')
                     .style('opacity', '0.4')
                 svg.append('rect')
-                    .attr('x', 170)
-                    .attr('y', 38 + (calculatedMarginOfTheLine * (index + 1)))
+                    .attr('x', x_axis_of_bar)
+                    .attr('y', y_axis_of_small_bar + (calculatedMarginOfTheLine * (index + 1)))
                     .attr('height', height_of_small_bar)
                     .attr('width', value.val_2 * calculateUnitsInPixel)
                     .style('fill', value.mark_val <= value.val_1 ? 'green' : 'red')
@@ -171,8 +174,8 @@
                 svg.append('line')
                     .attr('x1', (value.mark_val * calculateUnitsInPixel)+x_axis_of_bar)
                     .attr('x2', (value.mark_val * calculateUnitsInPixel)+x_axis_of_bar)
-                    .attr('y1', 30+(calculatedMarginOfTheLine*(index+1)))
-                    .attr('y2', 30+(calculatedMarginOfTheLine*(index+1)) + 40)
+                    .attr('y1', vertical_line_y1 + (calculatedMarginOfTheLine*(index+1)))
+                    .attr('y2', vertical_line_y2 + (calculatedMarginOfTheLine*(index+1)))
                     .attr('stroke-width', '2px')
                     .attr('stroke', 'black');
             })
